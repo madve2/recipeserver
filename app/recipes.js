@@ -1,4 +1,4 @@
-﻿[
+﻿const recipes = [
    {
       "group":"Chinese",
       "key":1000,
@@ -663,4 +663,6 @@
          "1 sheet frozen puff pastry, thawed in refrigerator"
       ]
    }
- ]
+ ];
+
+module.exports = recipes;
