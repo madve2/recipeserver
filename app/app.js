@@ -9,13 +9,20 @@ const port = process.env.PORT || localPort;
 
 app.use(cors());
 
-app.get('/recipes/:begin/:end/:delay', function (req, res) {
+app.get('/recipes/:begin/:end', function (req, res) {
     let b = Math.max(0, req.params.begin);
     let e = Math.min(recipes.length, req.params.end);
     var recipesString = JSON.stringify(recipes.slice(b, e));
     setTimeout(function() {
         res.send(recipesString);
-    }, Number(req.params.delay));
+    }, Number(req.query.delay || 0));
+});
+
+app.get('/recipe/:id', function (req, res) {
+    var recipeString = JSON.stringify(recipes.find(r => r.key == Number(req.params.id)));
+    setTimeout(function() {
+        res.send(recipeString);
+    }, Number(req.query.delay || 0));
 });
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
