@@ -1,17 +1,26 @@
-const http = require('http');
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const app = express();
 const recipes = require('./recipes');
 
-let localPort = 8081;
-let port = process.env.PORT || localPort;
+const localPort = 8081;
+const port = process.env.PORT || localPort;
 
-http.createServer(function(req, res){
-    let body = JSON.stringify(recipes);
-    res.writeHead(200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'X-Requested-With', 'Content-Type': 'text/html','Content-Length':body.length});
-    
+app.use(cors());
+
+app.get('/recipes/:begin/:end/:delay', function (req, res) {
+    let b = Math.max(0, req.params.begin);
+    let e = Math.min(recipes.length, req.params.end);
+    var recipesString = JSON.stringify(recipes.slice(b, e));
     setTimeout(function() {
-        res.write(body);
-        res.end();
-    }, 5000);
-}).listen(port);
+        res.send(recipesString);
+    }, Number(req.params.delay));
+});
 
-console.log(`Recipe server running at http://localhost:${port}/`);
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
+app.listen(port, function () {
+    console.log(`Recipe server running at http://localhost:${port}/`);
+});
+

@@ -1,7 +1,7 @@
 {
   "name": "recipeserver",
   "version": "1.0.0",
-  "description": "A CORS-enabled node server serving static JSON data in the simplest possible manner for demonstration purposes. Edit",
+  "description": "A CORS-enabled node server serving static JSON data in the simplest possible manner for demonstration purposes.",
   "main": "app/app.js",
   "scripts": {
     "start": "node app/app.js",
@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/madve2/recipeserver/issues"
   },
-  "homepage": "https://github.com/madve2/recipeserver#readme"
+  "homepage": "https://github.com/madve2/recipeserver#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.15.4"
+  }
 }
